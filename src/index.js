@@ -5,12 +5,13 @@ const typeDefs = `
         info: String!
         feed: [Link!]!
     }
+
+    type Link {
+        id: ID!
+        description: String!
+        url: String!
+    }
 `
-type Link {
-    id: ID!
-    description: String!
-    url: String!
-}
 
 let links = [{
     id: 'link-0',
@@ -20,7 +21,13 @@ let links = [{
 
 const resolvers = {
     Query: {
-        info: () => `This is the API of a Hackernews Clone`
+        info: () => `This is the API of a Hackernews Clone`,
+        feed: () => links,
+    },
+    Link: {
+        id: (parent) => parent.id,
+        url: (parent) => parent.url,
+        description: (parent) => parent.description
     }
 }
 
